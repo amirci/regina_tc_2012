@@ -1,6 +1,10 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using CommonServiceLocator.WindsorAdapter;
+using Microsoft.Practices.ServiceLocation;
+using MovieLibrary.Website.Controllers;
 
 namespace MovieLibrary.Website
 {
@@ -36,7 +40,13 @@ namespace MovieLibrary.Website
 
             var container = new WindsorContainer();
 
-            DependencyResolver.SetResolver(new WindsorControllerFactory(container.Kernel));
+            container.Register(
+                Component.For<IControllerFactory>().ImplementedBy<WindsorControllerFactory>(),
+                Component.For<MoviesController>());
+
+            ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
+
+            DependencyResolver.SetResolver(ServiceLocator.Current);
         }
     }
 }
