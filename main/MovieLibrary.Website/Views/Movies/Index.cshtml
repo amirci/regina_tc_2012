@@ -5,4 +5,8 @@
     ViewBag.Title = "Browse Movies";
 }
 
+@foreach(var movie in Model) {
+  <p class=”title”>@movie.Title</p>
+}
+
 <h2 id="notice">Sorry no movies available!</h2>
