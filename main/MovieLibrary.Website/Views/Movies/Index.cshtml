@@ -5,15 +5,4 @@
     ViewBag.Title = "Browse Movies";
 }
 
-@foreach(var movie in Model) {
-  <table class="element">
-    <tr>
-        <td class="title">@movie.Title</td>
-        <td class="image"></td>
-    </tr>
-  </table>
-}
-
-@if(Model.Count() == 0) { 
-    <h2>Sorry no movies available!</h2>
-}
+<h2 id="notice">Sorry no movies available!</h2>

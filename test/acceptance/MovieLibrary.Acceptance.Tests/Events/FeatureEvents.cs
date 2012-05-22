@@ -22,6 +22,8 @@ namespace MovieLibrary.Acceptance.Tests.Events
 
             var context = ScenarioContext.Current;
 
+            context.Set(new Infrastructure.Storage());
+
             context.Set(server);
 
             context.Set(new Browser());

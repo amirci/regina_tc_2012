@@ -1,6 +1,6 @@
 require 'rubygems'    
 
-sh "bundle install --system"
+sh "bundle install --system --quiet"
 Gem.clear_paths
 
 require 'albacore'
@@ -41,7 +41,7 @@ namespace :setup do
 	desc "Setup dependencies for nuget packages"
 	task :dep do
 		FileList["**/packages.config"].each do |file|
-			sh "nuget install #{file} /OutputDirectory Packages"
+			sh ".nuget/nuget.exe install #{file} /OutputDirectory Packages"
 		end
 
 		setup_os(nil)
@@ -65,14 +65,14 @@ namespace :test do
 
 	desc "Run acceptance tests"
 	nunit :unit => ["build:all"] do |nunit|
-		nunit.command = "packages/NUnit.2.5.10.11092/Tools/nunit-console.exe"
-		nunit.assemblies FileList["test/unit/**/bin/debug/*Tests.dll"]
+		nunit.command = FileList["packages/NUnit.*/Tools/nunit-console.exe"].first
+		nunit.assemblies FileList["test/unit/*/bin/debug/*Tests.dll"]
 	end
 
 	desc "Run acceptance tests"
 	nunit :acceptance => ["deploy:local"] do |nunit|
-		nunit.command = "packages/NUnit.2.5.10.11092/Tools/nunit-console.exe"
-		nunit.assemblies FileList["test/acceptance/**/bin/debug/*Tests.dll"]
+		nunit.command = FileList["packages/NUnit.*/Tools/nunit-console.exe"].first
+		nunit.assemblies FileList["test/acceptance/*/bin/debug/*Tests.dll"]
 	end
 end
 

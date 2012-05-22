@@ -1,18 +1,13 @@
 ﻿using System.Collections.Generic;
-using FluentNHibernate.Automapping;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
 using MovieLibrary.Core;
 using NHibernate;
-using NHibernate.Cfg;
-using NHibernate.Tool.hbm2ddl;
 
 namespace MovieLibrary.Storage.NHibernate
 {
     /// <summary>
     /// Implementation that uses the media storage
     /// </summary>
-    public class StorageMediaLibrary : IMovieLibrary
+    public class SimpleMovieLibrary : IMovieLibrary
     {
         /// <summary>
         /// Factory to obtain the session
@@ -22,27 +17,16 @@ namespace MovieLibrary.Storage.NHibernate
         /// <summary>
         /// Initializes the repository using a persistence configurer
         /// </summary>
-        public StorageMediaLibrary(string databaseFile)
+        public SimpleMovieLibrary(string databaseFile)
         {
-            var configurer = SQLiteConfiguration.Standard.UsingFile(databaseFile);
-
-#if DEBUG
-            configurer.ShowSql();
-#endif
-
-            this._factory = Fluently
-                .Configure()
-                .ExposeConfiguration(BuildSchema)
-                .Database(configurer)
-                .Mappings(m => m.AutoMappings.Add(AutoMap.AssemblyOf<IMovie>()))
-                .BuildSessionFactory();
+            this._factory = SessionFactoryGateway.Create(databaseFile);
         }
 
         /// <summary>
         /// Constructor that injects the session factory
         /// </summary>
         /// <param name="factory">Session factory to use</param>
-        public StorageMediaLibrary(ISessionFactory factory)
+        public SimpleMovieLibrary(ISessionFactory factory)
         {
             this._factory = factory;
         }
@@ -70,18 +54,6 @@ namespace MovieLibrary.Storage.NHibernate
         public void Clear()
         {
             this._factory.AutoCommit(s => s.Delete("from Movie"));
-        }
-
-        /// <summary>
-        /// Deletes the database if exists and creates the schema
-        /// </summary>
-        /// <param name="config">
-        /// Configuration to use 
-        /// </param>
-        private static void BuildSchema(Configuration config)
-        {
-            // export schema
-            new SchemaExport(config).Create(true, true);
         }
     }
 }

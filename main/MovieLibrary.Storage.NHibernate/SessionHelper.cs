@@ -17,11 +17,10 @@ namespace MovieLibrary.Storage.NHibernate
         /// <typeparam name="T">Type of the element to look for</typeparam>
         /// <param name="factory">Factory to open the session</param>
         /// <returns>A collection with all the elements</returns>
-        public static IList<T> List<T>(this ISessionFactory factory)
+        public static IList<T> List<T>(this ISessionFactory factory) where T : class
         {
             return factory
-                .AutoSession(s => s.CreateCriteria(typeof (T))
-                                      .List<T>());
+                .AutoSession(s => s.CreateCriteria<T>().List<T>());
         }
 
         /// <summary>

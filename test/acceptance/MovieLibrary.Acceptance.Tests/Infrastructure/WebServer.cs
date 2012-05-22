@@ -17,6 +17,8 @@ namespace MovieLibrary.Acceptance.Tests.Infrastructure
         /// </summary>
         const string relativeWebPath = @"..\..\..\..\..\main\MovieLibrary.Website";
 
+        public static DirectoryInfo WebRoot = new DirectoryInfo(ResolvePath(relativeWebPath));
+
         /// <summary>
         /// Port to use
         /// </summary>
@@ -31,14 +33,12 @@ namespace MovieLibrary.Acceptance.Tests.Infrastructure
 
         public void Start()
         {
-            var webRoot = new DirectoryInfo(ResolvePath(relativeWebPath));
-
             var actualPath = Path.Combine(Directory.GetCurrentDirectory(), relativeToolPath);
 
             // configure IIS Express command-line parameters
             var exeFile = new FileInfo(actualPath);
 
-            var args = string.Format(@"/path:""{0}"" /port:{1} /clr:v{2:0.0}", webRoot.FullName, Port, ClrVersion);
+            var args = string.Format(@"/path:""{0}"" /port:{1} /clr:v{2:0.0}", WebRoot.FullName, Port, ClrVersion);
 
             Log("starting IIS Express:\n--> {0} {1}", exeFile.FullName, args);
 

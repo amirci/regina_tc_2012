@@ -1,30 +1,70 @@
+using System;
 using System.IO;
+using System.Xml;
+using FluentXml;
+using MovieLibrary.Storage.NHibernate;
+using NUnit.Framework;
 
 namespace MovieLibrary.Acceptance.Tests.Infrastructure
 {
     public class Storage
     {
-        protected string DatabaseFile { get; private set; }
+        public const string DBSETTINGS_KEY = "MovieDatabaseFile";
 
-        /// <summary>
-        /// Updates the boo configuration with the path to the storage
-        /// </summary>
-        /// <param name="applicationPath">Path to the web application</param>
-        private void UpdateConfiguraiton(string applicationPath)
+        public Storage()
         {
-            // Get the file name
-            var booConfigFileName = Path.Combine(applicationPath, "Global.boo");
+            DatabaseFile = Path.GetTempFileName();
 
-            // Read the file and change the line
-            var configFile = File.ReadAllLines(booConfigFileName);
+            UpdateWebConfig(WebServer.WebRoot, DatabaseFile);
 
-            var index = 1; // configFile.IndexOf(line => line == "databaseFile");
-
-            configFile[index] = string.Format("  databaseFile = \"{0}\"", DatabaseFile.Replace("\\", "/"));
-
-            // Write the file
-            File.WriteAllLines(booConfigFileName, configFile);
+            this.Library = new SimpleMovieLibrary(DatabaseFile);
         }
 
+        public SimpleMovieLibrary Library { get; private set; }
+
+        public string DatabaseFile { get; private set; }
+
+        private static void UpdateWebConfig(DirectoryInfo webRoot, string dbFileName)
+        {
+            var configFile = Path.Combine(webRoot.FullName, "Web.config");
+
+            Assert.True(File.Exists(configFile), "{0} does not exist!", configFile);
+
+            Console.WriteLine("updating: {0}", configFile);
+
+            FluentXmlDocument
+                .FromFile(configFile)
+                .RemoveSqliteFileSetting()
+                .AddSqliteFileSetting(dbFileName)
+                .Save(configFile);
+        }
+    }
+
+    public static class Helper
+    {
+        public static XmlDocument RemoveSqliteFileSetting(this XmlDocument configDoc)
+        {
+            var appSettings = configDoc.Node("appSettings");
+
+            var node = appSettings.Node(n => n.Attr("key") == Storage.DBSETTINGS_KEY);
+
+            if (node != null)
+            {
+                appSettings.RemoveChild(node);
+            }
+
+            return configDoc;
+        }
+
+        public static XmlDocument AddSqliteFileSetting(this XmlDocument configDoc, string dbFileName)
+        {
+            configDoc.Node("appSettings")
+                .NewNode("add")
+                .Attr("key", Storage.DBSETTINGS_KEY)
+                .Attr("value", dbFileName);
+
+            return configDoc;
+        }
+            
     }
 }

@@ -13,6 +13,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.Acceptance.Tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Acceptance", "Acceptance", "{E5A7E9E4-4169-4AB1-8F9E-41A34C75FCA9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{61BBC705-16EB-4D75-86E6-BE597A8976DE}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit", "Unit", "{823BDFCD-A1C8-4120-84EE-5090B45BA02A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.Core.Tests", "test\unit\MovieLibrary.Core.Tests\MovieLibrary.Core.Tests.csproj", "{FBBBBFF1-F9F5-4688-AE06-349022CD5B78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.Website.Tests", "test\unit\MovieLibrary.Website.Tests\MovieLibrary.Website.Tests.csproj", "{6DB13A62-B771-4749-BD1F-8F53FC72463B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.Storage.NHibernate.Tests", "test\unit\MovieLibrary.Storage.NHibernate.Tests\MovieLibrary.Storage.NHibernate.Tests.csproj", "{116E55F3-A7FC-4395-8749-45B7CA751351}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,12 +49,28 @@ Global
 		{FB4CBAD4-F638-4405-B253-CFD73BFA6848}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB4CBAD4-F638-4405-B253-CFD73BFA6848}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB4CBAD4-F638-4405-B253-CFD73BFA6848}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBBBBFF1-F9F5-4688-AE06-349022CD5B78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBBBBFF1-F9F5-4688-AE06-349022CD5B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBBBBFF1-F9F5-4688-AE06-349022CD5B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBBBBFF1-F9F5-4688-AE06-349022CD5B78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DB13A62-B771-4749-BD1F-8F53FC72463B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DB13A62-B771-4749-BD1F-8F53FC72463B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DB13A62-B771-4749-BD1F-8F53FC72463B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DB13A62-B771-4749-BD1F-8F53FC72463B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{116E55F3-A7FC-4395-8749-45B7CA751351}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{116E55F3-A7FC-4395-8749-45B7CA751351}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{116E55F3-A7FC-4395-8749-45B7CA751351}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{116E55F3-A7FC-4395-8749-45B7CA751351}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E5A7E9E4-4169-4AB1-8F9E-41A34C75FCA9} = {79DE6D8A-D216-4A7B-BA9D-A7F482FA1F67}
+		{823BDFCD-A1C8-4120-84EE-5090B45BA02A} = {79DE6D8A-D216-4A7B-BA9D-A7F482FA1F67}
 		{FB4CBAD4-F638-4405-B253-CFD73BFA6848} = {E5A7E9E4-4169-4AB1-8F9E-41A34C75FCA9}
+		{FBBBBFF1-F9F5-4688-AE06-349022CD5B78} = {823BDFCD-A1C8-4120-84EE-5090B45BA02A}
+		{6DB13A62-B771-4749-BD1F-8F53FC72463B} = {823BDFCD-A1C8-4120-84EE-5090B45BA02A}
+		{116E55F3-A7FC-4395-8749-45B7CA751351} = {823BDFCD-A1C8-4120-84EE-5090B45BA02A}
 	EndGlobalSection
 EndGlobal
