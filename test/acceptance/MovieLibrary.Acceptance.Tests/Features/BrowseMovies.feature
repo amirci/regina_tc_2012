@@ -7,4 +7,9 @@
 		Given I have no movies stored
 		When  I browse the movies
 		Then  I should a notification explaining the listing is empty
+
+	Scenario: Browse available movies
+		Given I have some movies stored
+		When  I browse the movies
+		Then  I should see all the movies listed
 		

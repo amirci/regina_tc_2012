@@ -68,6 +68,23 @@ testRunner.Then("I should a notification explaining the listing is empty");
 #line hidden
             testRunner.CollectScenarioErrors();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Browse available movies")]
+        public virtual void BrowseAvailableMovies()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Browse available movies", ((string[])(null)));
+#line 11
+this.ScenarioSetup(scenarioInfo);
+#line 12
+testRunner.Given("I have some movies stored");
+#line 13
+testRunner.When("I browse the movies");
+#line 14
+testRunner.Then("I should see all the movies listed");
+#line hidden
+            testRunner.CollectScenarioErrors();
+        }
     }
 }
 #endregion
