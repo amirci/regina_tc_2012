@@ -5,8 +5,21 @@
     ViewBag.Title = "Browse Movies";
 }
 
-@foreach(var movie in Model) {
-  <p class=”title”>@movie.Title</p>
-}
+<table>
+    <thead>
+        <tr>
+            <td>Title</td>
+            <td>Release Date</td>
+        </tr>
+    </thead>    
+    <tbody>
+        @foreach(var movie in Model) {
+            <tr class="movie">
+                <td>@movie.Title</td>
+                <td>@movie.ReleaseDate.ToString("d MMM yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 <h2 id="notice">Sorry no movies available!</h2>

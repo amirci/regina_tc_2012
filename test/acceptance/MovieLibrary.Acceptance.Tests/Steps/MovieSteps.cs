@@ -48,15 +48,19 @@ namespace MovieLibrary.Acceptance.Tests.Steps
         [Then(@"I should see all the movies listed")]
         public void AssertAllMoviesAreListed()
         {
-            var expected = Library.Contents.Select(m => new {m.Title, m.ReleaseDate});
+            var expected = Library.Contents.Select(m => new
+                                                            {
+                                                                m.Title,
+                                                                ReleaseDate = m.ReleaseDate.ToString("d MMM yyyy")
+                                                            });
 
             var actual = Browser
                 .Instance
-                .TableRows.Filter(Find.ByClass(".movie"))
+                .TableRows.Filter(Find.ByClass("movie"))
                 .Select(row => new
                                    {
                                        Title = row.TableCells[0].Text,
-                                       ReleaseDate = DateTime.Parse(row.TableCells[1].Text)
+                                       ReleaseDate = row.TableCells[1].Text
                                    });
 
             actual.Should().Have.SameSequenceAs(expected);
